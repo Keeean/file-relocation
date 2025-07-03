@@ -4,7 +4,23 @@ import argparse
 import shutil
 import logging
 
-logging.basicConfig()
+logger = logging.getLogger("relocator")
+logger.setLevel(logging.DEBUG)
+
+format = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+
+stream = logging.StreamHandler()
+stream.setLevel(logging.DEBUG)
+stream.setFormatter(format)
+
+file_log = logging.FileHandler("relocator.log")
+file_log.setLevel(logging.INFO)
+file_log.setFormatter(format)
+
+logger.addHandler(stream)
+logger.addHandler(file_log)
+
+
 
 IMG_EXTENSIONS = ['.jpg', '.png', '.svg', '.jpeg']
 DOC_EXTENSIONS = ['.docx', '.pdf', '.DOCX', '.PDF', '.doc', '.ppt', '.pptx']
@@ -34,7 +50,8 @@ if __name__ == '__main__':
     
     if args.preview: 
         for file in files:
-            print(os.path.join(source, file) + " will be moved to " + os.path.join(destination, file))
+            # print(os.path.join(source, file) + " will be moved to " + os.path.join(destination, file))
+            logger.debug(f'Preview: {file} will be moved to {os.path.join(destination, file)}')
         print("File relocation preview finished.")
     else:
         for file in files:
