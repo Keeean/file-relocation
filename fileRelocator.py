@@ -21,7 +21,6 @@ logger.addHandler(stream)
 logger.addHandler(file_log)
 
 
-
 IMG_EXTENSIONS = ['.jpg', '.png', '.svg', '.jpeg']
 DOC_EXTENSIONS = ['.docx', '.pdf', '.DOCX', '.PDF', '.doc', '.ppt', '.pptx']
 
@@ -51,11 +50,12 @@ if __name__ == '__main__':
     if args.preview: 
         for file in files:
             # print(os.path.join(source, file) + " will be moved to " + os.path.join(destination, file))
-            logger.debug(f'Preview: {file} will be moved to {os.path.join(destination, file)}')
+            logger.debug(f'Preview: {file} will be moved to {os.path.join(destination, file)}.')
         print("File relocation preview finished.")
     else:
         for file in files:
             shutil.move(os.path.join(source, file), os.path.join(destination, file))
+            logger.info(f'Moved {os.path.join(source, file)} to {os.path.join(destination, file)}.')
         print("\nFile relocation done. Please check the source and destination folders.")
     
     
